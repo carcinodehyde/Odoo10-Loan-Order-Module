@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_loan_order_tree" model="ir.ui.view">
+			<field name="name">loan.order.tree</field>
+			<field name="model">loan.order</field>
+			<field name="priority">2</field>
+			<field name="arch" type="xml">
+				<tree string="Loan Orders">
+					<field name="name" string="Order Number"/>
+					<field name="order_date"/>
+					<field name="partner_id"/>
+					<field name="starting_date"/>
+					<field name="end_date"/>
+					<field name="status"/>
+				</tree>
+			</field>
+		</record>
+	</data>
+</odoo>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="seq_loan_order" model="ir.sequence">  
+			<field name="name">Loan Order Sequence</field>  
+			<field name="code">loan.order</field>  
+			<field name="prefix">LO</field>  
+			<field name="padding">5</field>  
+			<field eval="1" name="number_increment"/>  
+		</record>
+		<record id="view_loan_order_form" model="ir.ui.view">
+			<field name="name">loan.order.form</field>
+			<field name="model">loan.order</field>
+			<field name="arch" type="xml">
+				<form string="Loan Order" class="o_loan_order">
+					<header>
+						<button name="action_confirm" string="Confirm Loan" class="btn-primary o_sale_confirm" type="object" attrs="{'invisible': [('status', '!=', 'draft')]}" />
+						<button name="action_partially_delivered" type="object" string="Confirm Partially Delivered" attrs="{'invisible': [('status', '!=', 'confirm')]}"/>
+						<button name="action_delivered" type="object" string="Confirm All Delivered" attrs="{'invisible': [('status', 'not in', ('confirm', 'partially_delivered'))]}"/>
+						<button name="action_partially_returned" type="object" string="Confirm Partially Returned" attrs="{'invisible': [('status', 'not in', ('partially_delivered', 'delivered'))]}"/>
+						<button name="action_returned" type="object" string="Confirm All Returned" attrs="{'invisible': [('status', 'not in', ('delivered', 'partially_returned'))]}"/>
+						<button name="action_cancel" type="object" string="Cancel" invisible="1"/>
+						<field name="status" widget="statusbar" statusbar_visible="draft,confirm,partially_delivered,delivered,partially_returned,returned"/>
+					</header>
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								Loan Order: 
+								<field name="name" readonly="1"/>
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="partner_id" domain="[('customer','=',True)]" context="{'search_default_customer':1, 'show_address': 1}" options="{&quot;always_reload&quot;: True}"/>
+							</group>
+							<group>
+								<field name="order_date" />
+								<field name="starting_date" />
+								<field name="end_date" />
+							</group>
+						</group>
+						<notebook>
+							<page string="Order Lines">
+								<field name="loan_order_ids" mode="tree,kanban"
+									attrs="{'readonly': [('status', 'in', ('delivered','returned'))]}">
+									<tree string="Sales Order Lines" editable="bottom" >
+										<field name="product_id" context="{'partner_id':parent.partner_id}" />
+										<field name="name" />
+										<field name="qty" />
+										<field name="free_stock" />
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+	</data>
+</odoo>
