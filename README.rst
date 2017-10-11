@@ -3,7 +3,7 @@
    :alt: License: AGPL-3
 
 ==============
-Learning Task 16
+Loan Order Module
 ==============
 
 Add a new loan order module located under sale menu
