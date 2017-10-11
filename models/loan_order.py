@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# This module is developed by Portcities Indonesia
-# Copyright (C) 2017 Portcities Indonesia (<http://portcities.net>).
+# This module is developed by Deddy Setiawan
+# Copyright (C) 2017 Deddy Setiawan (<http://dedset.xyz>).
 # All Rights Reserved
 #
 # This program is free software: you can redistribute it and/or modify
