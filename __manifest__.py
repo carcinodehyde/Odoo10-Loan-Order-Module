@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# This module is developed by Deddy Setiawan
-# Copyright (C) 2017 Deddy Setiawan (<http://dedset.xyz>).
+# This module is developed by Portcities Indonesia
+# Copyright (C) 2017 Portcities Indonesia (<http://portcities.net>).
 # All Rights Reserved
 #
 # This program is free software: you can redistribute it and/or modify
@@ -32,6 +32,8 @@
     'license':'LGPL-3',
     'depends' : ['base', 'purchase',],
     'data': [
+    'security/user_groups.xml',
+    'security/ir.model.access.csv',
     'views/loan_order_menu_view.xml',
     'views/loan_order_list_view.xml',
     'views/loan_order_form_view.xml',

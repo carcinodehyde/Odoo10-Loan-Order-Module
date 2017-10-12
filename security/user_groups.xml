@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record model="ir.module.category" id="module_management">
+			<field name="name">Loan Order</field>
+			<field name="description">User access level for loan order module</field>
+			<field name="sequence">12</field>
+		</record>
+
+		<record id="group_user" model="res.groups">
+			<field name="name">Loan Order User</field>
+			<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+			<field name="users" eval="[(4, ref('base.user_root'))]"/>
+			<field name="category_id" ref="pci_task_16.module_management"/>
+		</record>
+
+		<record id="group_manager" model="res.groups">
+			<field name="name">Loan Order Manager</field>
+			<field name="implied_ids" eval="[(4, ref('pci_task_16.group_user'))]"/>
+			<field name="category_id" ref="pci_task_16.module_management"/>
+		</record>
+	</data>
+</odoo>

@@ -6,12 +6,7 @@
 			<field name="name">Loan Order</field>
 			<field name="res_model">loan.order</field>
 		</record>
-		<menuitem name="Loan Order"
-			id="parent_loan_order" parent="sales_team.menu_base_partner"
-			sequence="4" />
-
-			<menuitem name="Loan Order" action="action_loan_order"
-				id="loan_order_list_view" parent="parent_loan_order"
-				sequence="1"/>
-			</data>
-		</odoo>
+		<menuitem name="Loan Order" id="parent_loan_order" parent="sales_team.menu_base_partner" sequence="4" />
+		<menuitem name="Loan Order" action="action_loan_order" id="loan_order_list_view" parent="parent_loan_order" sequence="1"/>
+	</data>
+</odoo>

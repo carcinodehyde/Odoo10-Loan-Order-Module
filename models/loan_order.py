@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# This module is developed by Deddy Setiawan
-# Copyright (C) 2017 Deddy Setiawan (<http://dedset.xyz>).
+# This module is developed by Portcities Indonesia
+# Copyright (C) 2017 Portcities Indonesia (<http://portcities.net>).
 # All Rights Reserved
 #
 # This program is free software: you can redistribute it and/or modify
@@ -34,9 +34,30 @@ class LoanOrder(models.Model):
 	status = fields.Selection(selection='_get_status_selection', string='Status')
 	loan_order_ids = fields.One2many('loan.order.line', 'loan_order_id')
 
+	def _get_status_selection(self):
+		return (('draft', 'Draft Loan'), ('confirm', 'Loan Sent'), 
+			('partially_delivered', 'Partially Delivered'), ('delivered', 'Delivered'), 
+			('partially_returned', 'Rartially Returned'), ('returned', 'Returned'))
+
+	def action_confirm(self):
+		for loan in self:
+			for item in loan.loan_order_ids:
+				for product in item.product_id:
+					product.qty_available -= item.qty
+					product.write({'qty_available': product.qty_available})
+					
+					# item.free_stock -= item.qty
+			# loan.status = 'confirm'
+		return True
+
+	def _set_status(self, value):
+		for res in self:
+			res.status = value
+		return True
+
 	@api.model
 	def create(self, vals):
-		print vals['status']
+		# print vals['status']
 		if not vals['status']:
 			vals['status'] = 'draft'
 			print vals['status']
@@ -47,36 +68,17 @@ class LoanOrder(models.Model):
 
 		return super(LoanOrder, self).create(vals)
 
-
-	def _get_status_selection(self):
-		return (('draft', 'Draft Loan'), ('confirm', 'Loan Sent'), 
-			('partially_delivered', 'Partially Delivered'), ('delivered', 'Delivered'), 
-			('partially_returned', 'Rartially Returned'), ('returned', 'Returned'))
-
-	def action_confirm(self):
-		for loan in self:
-			loan.status = 'confirm'
-		return True
-
 	def action_partially_delivered(self):
-		for res in self:
-			res.status = 'partially_delivered'
-		return True
+		return self._set_status('partially_delivered')
 
 	def action_delivered(self):
-		for res in self:
-			res.status = 'delivered'
-		return True
+		return self._set_status('delivered')
 
 	def action_partially_returned(self):
-		for res in self:
-			res.status = 'partially_returned'
-		return True
+		return self._set_status('partially_returned')
 
 	def action_returned(self):
-		for res in self:
-			res.status = 'returned'
-		return True
+		return self._set_status('returned')
 
 
 class LoanOrderLine(models.Model):

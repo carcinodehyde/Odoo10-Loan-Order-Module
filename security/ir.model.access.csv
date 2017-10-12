@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_loan_order_manager,Loan Order Manager,model_loan_order,pci_task_16.group_manager,1,1,1,1
+access_loan_order_line_manager,Loan Order Line Manager,model_loan_order_line,pci_task_16.group_manager,1,1,1,1
+access_loan_order_user,Loan Order User,model_loan_order,pci_task_16.group_user,1,0,1,0
+access_loan_order_line_user,Loan Order Line User,model_loan_order_line,pci_task_16.group_user,1,0,1,0
